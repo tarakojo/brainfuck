@@ -1,1 +1,1 @@
-# brainfuck-
+# brainfuck-generator
