@@ -1,0 +1,25 @@
+
+.memory_view_container{
+  height: 45%;
+  min-height: 10%;
+  max-height: 80%;
+  overflow-x: scroll;
+  overflow-y: scroll;
+
+  font-size: small;
+}
+
+.memory_view_cell{
+  width: calc(100% / 16.0);
+  min-width: 3.5ch;
+  border: 1px solid;
+  border-color: black;
+}
+
+.memory_view_cell_index{
+  font-size: x-small;
+}
+
+.memory_view_cell_value{
+  text-align: center;
+}
