@@ -127,3 +127,6 @@ sidebarのplaybuttonによさそう?
 
 
 input bufferのスクロールやアニメーションを滑らかにしたい
+
+
+input bufferとmemory viewは描画を操作と非同期に行う方がよい

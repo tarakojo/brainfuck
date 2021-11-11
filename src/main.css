@@ -1,4 +1,6 @@
-
+:root{
+  --test_sidebarw : 25%;
+}
 
 textarea{
   resize: none;
@@ -52,7 +54,7 @@ input {
 }
 
 .sidebar_container{
-  width: 22%;
+  width: var(--test_sidebarw);
   min-width: 50px;
   display: flex;
   flex-direction: row;
@@ -103,9 +105,9 @@ input {
 }
 
 .play_button_container{
-  height: 10%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 }
 
 .control_container{
