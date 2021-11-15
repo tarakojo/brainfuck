@@ -1,4 +1,4 @@
 
-CodeMirror.fromTextArea(document.getElementById("editor"), {
+let editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
   lineNumbers: true,
 });

@@ -49,6 +49,6 @@ class Token {
   }
 
   check_valid () {
-    return !check_conflict() && !check_includesComment();
+    return !this.check_conflict() && !this.check_includesComment();
   }
 };

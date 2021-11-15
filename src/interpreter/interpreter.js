@@ -3,11 +3,12 @@
 let interpreter = {
   memorySize: 1024,
   program: null,
-  programCounter: null,
-  memoryPointer: null,
+  programCounter: 0,
+  memoryPointer: 0,
   jumpStack: []
 };
 interpreter.memory = new Uint8Array(interpreter.memorySize);
+interpreter.memory.fill(0);
 
 //インタプリタの初期化
 interpreter.init = (program) => {
@@ -18,49 +19,40 @@ interpreter.init = (program) => {
   interpreter.jumpStack = [];
 }
 
-//1ステップ実行する。accelerate=trueのとき、連続する同命令は一度に実行される
-//プログラムが終了したならfalse そうでないときtrue
-interpreter.step = (accelerate) => {
+//1ステップ実行する。
+//入力バッファが空で入力の読み取りに失敗:-1
+//プログラムが終了した:0 
+//そうでないとき:1
+interpreter.step = () => {
   let ip = interpreter;
-  let last_opcode = null;
-  do {
-    last_opcode = ip.program[ip.programCounter];
+  let opc = ip.program[ip.programCounter].opcode;
+  let ope = ip.program[ip.programCounter].operand;
 
-    switch (last_opcode) {
-      case token.index.pointer_inclement:
-        ip.memoryPointer++;
-        ip.memoryPointer %= interpreter_memorySize;
-        ip.programCounter++;
-        break;
-      case token.index.pointer_declement:
-        ip.memoryPointer--;
-        ip.memoryPointer = (ip.memoryPointer + interpreter_memorySize) % interpreter_memorySize;
-        ip.programCounter++;
-        break;
-      case token.index.memory_inclement:
-        ip.memory[ip.memoryPointer]++;
-        ip.programCounter++;
-        break;
-      case token.index.memory_declement:
-        ip.memory[ip.memoryPointer]--;
-        ip.programCounter++;
-        break;
-      case token.index.put:
-        consoleLog.write_fromInterpreter(ip.memory[ip.memoryPointer]);
-        ip.programCounter++;
-        break;
-      case token.index.get:
-        ip.memory[ip.memoryPointer] = inputBuffer.pop();
-        ip.programCounter++;
-        break;
-      case token.index.if0_jump:
+  switch (opc) {
+    case opcode.pointer_add:
+      ip.memoryPointer = (ip.memoryPointer + ope) % ip.memorySize;
+      break;
+    case opcode.memory_add:
+      ip.memory[ip.memoryPointer] += ope;
+      break;
+    case opcode.put:
+      consoleLog.write_fromInterpreter(ip.memory[ip.memoryPointer]);
+      break;
+    case opcode.get:
+      if (inputBuffer.check_empty()) return -1;
+      ip.memory[ip.memoryPointer] = inputBuffer.pop();
+      break;
+    case opcode.if0_jump:
+      if (ip.memory[ip.memoryPointer] == 0) ip.programCounter = ope;
+      break;
+    case opcode.ifnot0_jump:
+      if (ip.memory[ip.memoryPointer] != 0) ip.programCounter = ope;
+      break;
+    default:
+      alert("internal error");
+      break;
+  };
 
-
-      default:
-        console.log("実装途中です");
-    };
-
-    if (ip.programCounter === ip.program.length) return false;
-  } while (accelerate && last_opcode == ip.program[ip.programCounter]);
-  return true;
+  ip.programCounter++;
+  return (ip.programCounter === ip.program.length) ? 0 : 1;
 }

@@ -14,4 +14,4 @@ tokenizer.read = (src, pos, token) => {
     return { index: token_index.comment, nextpos: (p == -1 ? src.length : p + 1) };
   }
   return { index: token_index.comment, nextpos: pos + 1 };
-};
+}

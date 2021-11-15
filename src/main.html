@@ -5,19 +5,33 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="sanitize.css">
   <link rel="stylesheet" href="main.css">
+
   <link rel="stylesheet" href="icon/play_button.css">
-  <link rel="stylesheet" href="input_buffer.css">
-  <link rel="stylesheet" href="memory_view.css">
+
+  <link rel="stylesheet" href="player/memory_view.css">
+
+  <link rel="stylesheet" href="console/console.css">
 
   <link rel="stylesheet" href="codemirror/codemirror.css">
+  <link rel="stylesheet" href="bvselect/bvselect.css">
 
 </head>
 
 <body>
   <div class="app_container">
-    <div id="sidebar_container" class="sidebar_container modechange_transition">
 
-      <div id="setting_mode_sidebar_container" class="setting_mode_sidebar_container">
+
+
+
+
+
+
+
+    <div id="sidebar_container" class="sidebar_container">
+      <!-- modechange_transition"> -->
+
+      <div id="setting_mode_sidebar_container" class="setting_mode_sidebar_container" style="display: none;">
+        <!--一時的-->
 
         <div style="height: 20%; width: 100%; background-color: blueviolet;">logo</div>
         <div class="play_button_container">
@@ -48,57 +62,80 @@
 -->
       </div>
 
-      <div id="play_mode_sidebar" class="play_mode_sidebar modechange_transition">
-        <button id="back_button">back</button>
+      <div id="play_mode_sidebar" class="play_mode_sidebar">
+        <!-- modechange_transition"> -->
+        <!--<button id="back_button">back</button>-->
       </div>
     </div>
+
+
+
+
+
+
+
+
 
     <div id="main_container" class="main_container">
       <div id="editor_container" class="editor_container">
         <textarea id="editor" class="editor"></textarea>
       </div>
       <div class="gutter_horizontal"></div>
-      <div id="interpreter_container" class="interpreter_container modechange_transition">
+      <div id="interpreter_container" class="interpreter_container">
+        <!-- modechange_transition"> -->
 
-        <div id="memory_view_container" class="memory_view_container">
-          <!--スクリプトで作成される-->
-        </div>
+        <div id="memory_view_container" class="memory_view_container"></div>
 
-        <div id="input_buffer_container" class="input_buffer_container">
-          <div id="input_buffer_header" class="input_buffer_header">buffer</div>
-          <div id="input_buffer" class="input_buffer"></div>
+        <div class="input_buffer_view_container">
+          <div class="input_buffer_view_header">buffer</div>
+          <input type="text" id="input_buffer_view" class="input_buffer_view" value="" readonly>
         </div>
 
         <div id="control_container" class="control_container">
-          <button id="start_stop_button">stop</button>
-          <button id="pause_button">pause</button>
-          <button id="restart_button">restart</button>
-          <button id="step_over_button">step_over</button>
-          <input type="text" id="step_delay" class="step_delay" value="step_delay">
-          <input type="checkbox" id="accelerate" class="accelerate" value="accelerate">
+          <button id="play_stop_button">play</button>
+          <button id="pause_button" disabled>pause</button>
+          <button id="step_button" disabled>step_over</button>
+          <button id="restart_button" disabled>restart</button>
+          interval:
+          <select id="interval">
+            <option value="0"> 0ms </option>
+            <option value="10"> 10ms </option>
+            <option value="100" selected> 100ms </option>
+            <option value="1000"> 1000ms </option>
+            <option value="-1"> manual </option>
+          </select>
           <button id="console_log_clear_button">clear</button>
         </div>
         <div id="console_log_container" class="console_log_container">
           <textarea id="console_log" class="console_log" readonly></textarea>
         </div>
-        <input type="text" id="console_input" style="background-color: darkgoldenrod;">
+        <input type="text" id="console_input" class="console_input">
       </div>
     </div>
   </div>
 
+  <script src="bvselect/bvselect.js"></script>
   <script src="codemirror/codemirror.js"></script>
 
-  <script src="tokenizer.js"></script>
-  <script src="compiler.js"></script>
-  <script src="interpreter.js"></script>
-  <script src="memory_view.js"></script>
   <script src="editor.js"></script>
-  <script src="input_buffer.js"></script>
-  <script src="console_log.js"></script>
-  <script src="console_input.js"></script>
+
+  <script src="console/log.js"></script>
+  <script src="console/input_buffer.js"></script>
+  <script src="console/input_form.js"></script>
+  <script src="console/input_buffer_view.js"></script>
+
+  <script src="interpreter/types.js"></script>
+  <script src="interpreter/tokenizer.js"></script>
+  <script src="interpreter/compiler.js"></script>
+  <script src="interpreter/interpreter.js"></script>
+
+  <script src="player/player.js"></script>
+  <script src="player/control.js"></script>
+  <script src="player/memory_view.js"></script>
+
   <script src="mode_change.js"></script>
-  <script src="control.js"></script>
   <script>
+    /*
     document.getElementById("play_button").addEventListener("click", () => {
       change_toPlayMode();
     });
@@ -106,6 +143,9 @@
     document.getElementById("back_button").addEventListener("click", () => {
       change_toSettingMode();
     });
+    */
+    change_toPlayMode();
+
   </script>
 </body>
 
