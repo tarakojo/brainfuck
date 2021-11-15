@@ -1,0 +1,34 @@
+
+.console_input_form_container{
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.console_input_form_header{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--console_input_header_background_color);
+} 
+
+.console_input_form_header svg{
+  height: 20px;
+  width: 20px;
+  flex: 1;
+}
+
+
+
+.console_input_form{
+  height: fit-content;
+  width: 100%;
+  flex: 1;
+  font-size: medium;
+  background-color:var(--console_input_background_color);
+  color:var(--console_input_color);
+}

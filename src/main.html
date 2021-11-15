@@ -4,13 +4,17 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="sanitize.css">
+
+  <link rel="stylesheet" href="color.css">
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="scrollbar.css">
   <link rel="stylesheet" href="control.css">
+  <link rel="stylesheet" href="memory_view.css">
+  <link rel="stylesheet" href="input_buffer_view.css">
+  <link rel="stylesheet" href="console_log.css">
+  <link rel="stylesheet" href="input_form.css">
 
-  <link rel="stylesheet" href="player/memory_view.css">
-
-  <link rel="stylesheet" href="console/console.css">
-
+  <link rel="stylesheet" href="codemirror/mymonokai.css">
   <link rel="stylesheet" href="codemirror/codemirror.css">
   <link rel="stylesheet" href="bvselect/bvselect.css">
 
@@ -20,10 +24,9 @@
   <div class="app_container">
 
 
-
-
-
-
+  <!--License for all svg tags contained in this html file
+    Ikonate, copyright (c) 2019 Mikolaj Dobrucki
+    Distributed under an MIT license: https://opensource.org/licenses/MIT -->
 
 
     <div id="sidebar_container" class="sidebar_container">
@@ -79,11 +82,16 @@
       <div id="editor_container" class="editor_container">
         <textarea id="editor" class="editor"></textarea>
       </div>
+
       <div class="gutter_horizontal"></div>
+
+
       <div id="interpreter_container" class="interpreter_container">
         <!-- modechange_transition"> -->
 
         <div id="memory_view_container" class="memory_view_container"></div>
+
+        <div class="gutter_vertical" style="background-color: var(--green1);"></div>
 
         <div class="input_buffer_view_container">
           <div class="input_buffer_view_header">buffer</div>
@@ -92,10 +100,6 @@
 
         <div id="control_container" class="control_container">
           <div class="control_left_container">
-
-            <!-- Licence of the following svg codes=======================================================================
-               Ikonate, copyright (c) 2019 Mikolaj Dobrucki
-               Distributed under an MIT license: https://opensource.org/licenses/MIT -->
 
             <div id="control_play_button" class="control_button" role="button">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
@@ -138,7 +142,6 @@
                 <path stroke-linecap="round" d="M21 12h-1" />
               </svg>
             </div>
-            <!--==========================================================================================================-->
 
             <div style="padding-left: 5px;">interval:</div>
             <select id="control_interval">
@@ -153,10 +156,6 @@
           </div>
 
           <div class="control_right_container">
-            <!-- Licence of the following svg codes=======================================================================
-               Ikonate, copyright (c) 2019 Mikolaj Dobrucki
-               Distributed under an MIT license: https://opensource.org/licenses/MIT -->
-
             <div id="console_log_clear_button" class="control_button" role="button">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
                 stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
@@ -164,14 +163,31 @@
                 <path stroke-linecap="square" d="M5,5 L19,19" />
               </svg>
             </div>
-            <!--==========================================================================================================-->
           </div>
         </div>
 
         <div id="console_log_container" class="console_log_container">
           <textarea id="console_log" class="console_log" readonly></textarea>
         </div>
-        <input type="text" id="console_input" class="console_input">
+
+        <div class="gutter_vertical" style="background-color: var(--green2);"></div>
+
+        <div class="console_input_form_container">
+
+          <div class="console_input_form_header">
+            <svg role="img" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24"
+              aria-labelledby="chevronRightIconTitle" stroke="#2329D6" stroke-width="3" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" color="#2329D6">
+              <title id="chevronRightIconTitle">Chevron Right</title>
+              <polyline points="10 6 16 12 10 18 10 18" />
+            </svg>
+          </div>
+
+          <input type="text" id="console_input_form" class="console_input_form" spellcheck="false">
+          <div class="gutter_horizontal"></div>
+        </div>
+
+        <div class="gutter_vertical" style="background-color: var(--green1);"></div>
       </div>
     </div>
   </div>
@@ -181,19 +197,19 @@
 
   <script src="editor.js"></script>
 
-  <script src="console/log.js"></script>
-  <script src="console/input_buffer.js"></script>
-  <script src="console/input_form.js"></script>
-  <script src="console/input_buffer_view.js"></script>
+  <script src="log.js"></script>
+  <script src="input_buffer.js"></script>
+  <script src="input_form.js"></script>
+  <script src="input_buffer_view.js"></script>
 
-  <script src="interpreter/types.js"></script>
-  <script src="interpreter/tokenizer.js"></script>
-  <script src="interpreter/compiler.js"></script>
-  <script src="interpreter/interpreter.js"></script>
+  <script src="types.js"></script>
+  <script src="tokenizer.js"></script>
+  <script src="compiler.js"></script>
+  <script src="interpreter.js"></script>
 
-  <script src="player/player.js"></script>
-  <script src="player/control.js"></script>
-  <script src="player/memory_view.js"></script>
+  <script src="player.js"></script>
+  <script src="control.js"></script>
+  <script src="memory_view.js"></script>
 
   <script src="mode_change.js"></script>
   <script>

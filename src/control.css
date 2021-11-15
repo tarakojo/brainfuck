@@ -10,7 +10,8 @@
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  background-color:turquoise
+  background-color: var(--control_background_color);
+  color: var(--control_color);
 }
 
 .control_left_container{

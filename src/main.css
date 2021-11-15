@@ -2,18 +2,6 @@
   --test_sidebarw : 25%;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffe6ea;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ff8095;
-}
 
 textarea{
   resize: none;
@@ -71,6 +59,8 @@ input {
   min-width: 50px;
   display: flex;
   flex-direction: row;
+
+  background-color: var(--black1);
 }
 
 .setting_mode_sidebar_container{
@@ -79,7 +69,6 @@ input {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color:crimson;
 }
 
 .play_mode_sidebar{
@@ -88,7 +77,6 @@ input {
   width: 0%;
   display: flex;
   flex-direction: column;
-  background-color: cadetblue;
 }
 
 .main_container{
@@ -108,7 +96,14 @@ input {
 .gutter_horizontal{
   width: 0.25%;
   min-width: 4px;
-  background-color:blue;
+
+  background-color: var(--horizontal_gutter_color);
+}
+
+.gutter_vertical{
+  width: 100%;
+  height: 0.25%;
+  min-height: 4px;
 }
 
 .interpreter_container{
@@ -123,8 +118,6 @@ input {
   width: 100%;
 }
 
-
-.step_delay{
-  width: 20%;
-  border: 2px solid;
+::selection {
+  background: var(--purple1)
 }

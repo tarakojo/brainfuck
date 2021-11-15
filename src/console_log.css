@@ -9,4 +9,6 @@
   height: 100%;
   width: 100%;
   cursor: default;
+  background-color: var(--console_log_background_color);
+  color: var(--console_log_color);
 }

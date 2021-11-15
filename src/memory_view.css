@@ -7,19 +7,22 @@
   overflow-y: scroll;
 
   font-size: small;
+  background-color: var(--memory_view_background_color);
 }
 
 .memory_view_cell{
   width: calc(100% / 16.0);
   min-width: 3.5ch;
   border: 1px solid;
-  border-color: black;
+  border-color: var(--memory_view_border_color);
 }
 
 .memory_view_cell_index{
   font-size: x-small;
+  color: var(--memory_view_index_color);
 }
 
 .memory_view_cell_value{
   text-align: center;
+  color: var(--memory_view_value_color);
 }

@@ -12,6 +12,8 @@
   height: 100%;
   width: fit-content;
   padding: 2px;
+  background-color: var(--input_buffer_header_background_color);
+  color: var(--input_buffer_header_color);
 }
 
 .input_buffer_view{
@@ -20,6 +22,6 @@
   flex:1;
   font-size: small;
   cursor: default;
-    
-  background-color: darkcyan;
+  background-color: var(--input_buffer_background_color);
+  color: var(--input_buffer_color);
 }
