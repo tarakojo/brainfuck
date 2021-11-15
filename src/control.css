@@ -1,0 +1,51 @@
+
+:root{
+  --control_icon_size:30px;
+}
+
+
+.control_container{
+  height:fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  background-color:turquoise
+}
+
+.control_left_container{
+  height: fit-content;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.control_right_container{
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.control_button {
+  height: var(--control_icon_size);
+  width: var(--control_icon_size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control_button svg {
+  height: 75%;
+  width: 75%;
+  transition: all 0.15s 0s ease;
+}
+
+.control_button svg:active {
+  height: 65%;
+  width: 65%;
+  transition: all 0.15s 0s ease;
+}

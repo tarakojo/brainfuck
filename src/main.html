@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="sanitize.css">
   <link rel="stylesheet" href="main.css">
-
-  <link rel="stylesheet" href="icon/play_button.css">
+  <link rel="stylesheet" href="control.css">
 
   <link rel="stylesheet" href="player/memory_view.css">
 
@@ -92,20 +91,83 @@
         </div>
 
         <div id="control_container" class="control_container">
-          <button id="play_stop_button">play</button>
-          <button id="pause_button" disabled>pause</button>
-          <button id="step_button" disabled>step_over</button>
-          <button id="restart_button" disabled>restart</button>
-          interval:
-          <select id="interval">
-            <option value="0"> 0ms </option>
-            <option value="10"> 10ms </option>
-            <option value="100" selected> 100ms </option>
-            <option value="1000"> 1000ms </option>
-            <option value="-1"> manual </option>
-          </select>
-          <button id="console_log_clear_button">clear</button>
+          <div class="control_left_container">
+
+            <!-- Licence of the following svg codes=======================================================================
+               Ikonate, copyright (c) 2019 Mikolaj Dobrucki
+               Distributed under an MIT license: https://opensource.org/licenses/MIT -->
+
+            <div id="control_play_button" class="control_button" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+                <path d="M20 12L5 21V3z" />
+              </svg>
+            </div>
+
+            <div id="control_pause_button" class="control_button" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+                <rect width="4" height="16" x="5" y="4" />
+                <rect width="4" height="16" x="15" y="4" />
+              </svg>
+            </div>
+
+            <div id="control_stop_button" class="control_button" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+                <rect width="14" height="14" x="5" y="5" />
+              </svg>
+            </div>
+
+            <div id="control_restart_button" class="control_button" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+                <polyline points="22 12 19 15 16 12" />
+                <path
+                  d="M11,20 C6.581722,20 3,16.418278 3,12 C3,7.581722 6.581722,4 11,4 C15.418278,4 19,7.581722 19,12 L19,14" />
+              </svg>
+            </div>
+
+            <div id="control_step_button" class="control_button" role="button">
+              <svg role="img" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24"
+                aria-labelledby="arrowRightIconTitle" stroke="#2329D6" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" fill="none" color="#2329D6">
+                <title id="arrowRightIconTitle">Arrow Right</title>
+                <path d="M15 18l6-6-6-6" />
+                <path d="M3 12h17" />
+                <path stroke-linecap="round" d="M21 12h-1" />
+              </svg>
+            </div>
+            <!--==========================================================================================================-->
+
+            <div style="padding-left: 5px;">interval:</div>
+            <select id="control_interval">
+              <option value="0"> 0ms </option>
+              <option value="10"> 10ms </option>
+              <option value="100" selected> 100ms </option>
+              <option value="250"> 250ms </option>
+              <option value="500"> 500ms </option>
+              <option value="1000"> 1000ms </option>
+              <option value="-1"> manual </option>
+            </select>
+          </div>
+
+          <div class="control_right_container">
+            <!-- Licence of the following svg codes=======================================================================
+               Ikonate, copyright (c) 2019 Mikolaj Dobrucki
+               Distributed under an MIT license: https://opensource.org/licenses/MIT -->
+
+            <div id="console_log_clear_button" class="control_button" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+                <circle cx="12" cy="12" r="10" />
+                <path stroke-linecap="square" d="M5,5 L19,19" />
+              </svg>
+            </div>
+            <!--==========================================================================================================-->
+          </div>
         </div>
+
         <div id="console_log_container" class="console_log_container">
           <textarea id="console_log" class="console_log" readonly></textarea>
         </div>

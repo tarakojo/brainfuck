@@ -2,6 +2,19 @@
   --test_sidebarw : 25%;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffe6ea;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff8095;
+}
+
 textarea{
   resize: none;
   border: 0;
@@ -110,14 +123,6 @@ input {
   width: 100%;
 }
 
-.control_container{
-  height:fit-content;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  background-color: darkblue;
-}
 
 .step_delay{
   width: 20%;

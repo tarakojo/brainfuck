@@ -1,0 +1,12 @@
+
+.console_log_container{
+  width: 100%;
+  flex: 1;
+  cursor: default;
+}
+
+.console_log{
+  height: 100%;
+  width: 100%;
+  cursor: default;
+}
