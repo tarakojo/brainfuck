@@ -50,3 +50,14 @@
   width: 65%;
   transition: all 0.15s 0s ease;
 }
+
+.control_button_disabled{
+  stroke:var(--control_button_disabled_color) !important;
+  color:var(--control_button_disabled_color) !important;
+}
+
+.control_filled_button_disabled{
+  stroke:var(--control_button_disabled_color) !important;
+  color:var(--control_button_disabled_color) !important;
+  fill: var(--control_button_disabled_color) !important;
+}

@@ -42,6 +42,32 @@ player.end = false;
 
 document.addEventListener("beforeunload", () => { player.end = true; });
 
+
+player.init = () => {
+  //コンパイル、インタプリタの準備
+  let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "#"]);
+  if (!t.check_valid()) {
+    alert("compile error: invalid token set");
+    return false;
+  }
+  let p = compiler.compile(editor.getValue(), t);
+  if (p == null) {
+    alert("compile error: unbalanced brackets");
+    return false;
+  }
+  if (p.length == 0) {
+    alert("compile error: source is empty");
+    return false;
+  }
+  interpreter.init(p);
+
+  //入力状態を更新
+  player.waitInput = false;
+  inputBuffer.clear();
+
+  return true;
+};
+
 player.start = () => {
   if (!player.init()) {
     player.state = player.state_index.stop;
@@ -54,6 +80,7 @@ player.start = () => {
   else {
     player.state = player.state_index.interval;
   }
+  memoryView.update();
   return true;
 }
 
@@ -126,32 +153,6 @@ player.loop = () => {
   }).then(player.loop);
 };
 player.loop();
-
-
-player.init = () => {
-  //コンパイル、インタプリタの準備
-  let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "#"]);
-  if (!t.check_valid()) {
-    alert("compile error: invalid token set");
-    return false;
-  }
-  let p = compiler.compile(editor.getValue(), t);
-  if (p == null) {
-    alert("compile error: unbalanced brackets");
-    return false;
-  }
-  if (p.length == 0) {
-    alert("compile error: source is empty");
-    return false;
-  }
-  interpreter.init(p);
-
-  //入力状態を更新
-  player.waitInput = false;
-  inputBuffer.clear();
-
-  return true;
-};
 
 player.run_step = interpreter.step;
 player.run_tick = () => {

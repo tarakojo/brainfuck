@@ -14,11 +14,11 @@ memoryView.mem.fill(0);
 (() => {
   const v = document.createElement("div");
   v.id = "memory_view";
-  v.style.display = "none";
 
   for (i = 0; i < memoryView.row; ++i) {
     let row = document.createElement('div');
-    row.classList.add('flex_row');
+    row.style.display = "flex";
+    row.style.flexDirection = "row";
     for (j = 0; j < memoryView.col; ++j) {
       const index = String(i * memoryView.col + j);
       let cell = document.createElement('div');
@@ -39,21 +39,25 @@ memoryView.update = () => {
   new Promise((resolve) => {
     const newmp = interpreter.memoryPointer;
     const newmem = interpreter.memory.slice();
-    const c = document.getElementById("memory_view");
 
     for (i = 0; i < interpreter.memorySize; ++i) {
-      if (newmem[i] == memoryView.mem[i]) continue;
-      document.getElementById("memory_view_cell_" + String(i) + "_value").textContent = String(newmem[i]);
+      if (i == memoryView.mp) {
+        document.getElementById("memory_view_cell_" + String(i)).style.backgroundColor = "var(--memory_view_background_color)";
+      }
+      if (i == newmp) {
+        document.getElementById("memory_view_cell_" + String(i)).style.backgroundColor = "var(--memory_viwe_pointer_background_color)";
+      }
+      if (newmem[i] != memoryView.mem[i]) {
+        document.getElementById("memory_view_cell_" + String(i) + "_value").textContent = String(newmem[i]);
+      }
     }
 
     memoryView.mp = newmp;
     memoryView.mem = newmp;
 
-    let delay;
-    if (player.state == player.state_index.interval && player.interval > 0) delay = 50;
-    else delay = 200;
+    let delay = 50;
     setTimeout(resolve, (delay));
-    
+
   }).then(memoryView.update);
 }
 memoryView.update();

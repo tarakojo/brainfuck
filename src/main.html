@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="color.css">
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="play_mode_sidebar.css">
   <link rel="stylesheet" href="scrollbar.css">
   <link rel="stylesheet" href="control.css">
   <link rel="stylesheet" href="memory_view.css">
@@ -21,65 +22,15 @@
 </head>
 
 <body>
+
+
   <div class="app_container">
-
-
-  <!--License for all svg tags contained in this html file
-    Ikonate, copyright (c) 2019 Mikolaj Dobrucki
-    Distributed under an MIT license: https://opensource.org/licenses/MIT -->
-
-
     <div id="sidebar_container" class="sidebar_container">
-      <!-- modechange_transition"> -->
-
-      <div id="setting_mode_sidebar_container" class="setting_mode_sidebar_container" style="display: none;">
-        <!--一時的-->
-
-        <div style="height: 20%; width: 100%; background-color: blueviolet;">logo</div>
-        <div class="play_button_container">
-          <div id="play_button" class="play_button">
-            <svg viewBox="0 0 90 90">
-              <polygon points="20,5 70,45 20,85"></polygon>
-            </svg>
-          </div>
-        </div>
-        aaaaa
-        <!--
-        <div>&lt; </div>
-        <input type="text" id="token_property_pointer_inclement" class="token_property">
-        <div>&gt; </div>
-        <input type="text" id="token_property_pointer_declement" class="token_property">
-        <div> + </div>
-        <input type="text" id="token_property_memory_inclement" class="token_property">
-        <div> - </div>
-        <input type="text" id="token_property_memory_declement" class="token_property">
-        <div> . </div>
-        <input type="text" id="token_property_put" class="token_property">
-        <div> , </div>
-        <input type="text" id="token_property_get" class="token_property">
-        <div> [</div>
-        <input type="text" id="token_property_if0_jump" class="token_property">
-        <div> ] </div>
-        <input type="text" id="token_property_ifnot0_jump" class="token_property">
--->
-      </div>
-
-      <div id="play_mode_sidebar" class="play_mode_sidebar">
-        <!-- modechange_transition"> -->
-        <!--<button id="back_button">back</button>-->
-      </div>
     </div>
 
 
-
-
-
-
-
-
-
     <div id="main_container" class="main_container">
-      <div id="editor_container" class="editor_container">
+      <div class="editor_container">
         <textarea id="editor" class="editor"></textarea>
       </div>
 
@@ -98,44 +49,59 @@
           <input type="text" id="input_buffer_view" class="input_buffer_view" value="" readonly>
         </div>
 
+        <div class="gutter_vertical" style="background-color: var(--green1);"></div>
+
         <div id="control_container" class="control_container">
           <div class="control_left_container">
 
-            <div id="control_play_button" class="control_button" role="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
-                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+            <!--License for all svg tags contained in this html file
+              Ikonate, copyright (c) 2019 Mikolaj Dobrucki
+              Distributed under an MIT license: https://opensource.org/licenses/MIT -->
+
+            <div class="control_button">
+              <svg id="control_play_button" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                stroke="var(--control_play_button_color)" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="miter" fill="var(--control_play_button_color)"
+                color="var(--control_play_button_color)">
                 <path d="M20 12L5 21V3z" />
               </svg>
             </div>
 
-            <div id="control_pause_button" class="control_button" role="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
-                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+            <div class="control_button">
+              <svg id="control_pause_button" class="control_filled_button_disabled" role="button"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="var(--control_pause_button_color)"
+                stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" fill="var(--control_pause_button_color)"
+                color="var(--control_pause_button_color)">
                 <rect width="4" height="16" x="5" y="4" />
                 <rect width="4" height="16" x="15" y="4" />
               </svg>
             </div>
 
-            <div id="control_stop_button" class="control_button" role="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
-                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+            <div class="control_button">
+              <svg id="control_stop_button" class="control_filled_button_disabled" role="button"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="var(--control_stop_button_color)"
+                stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" fill="var(--control_stop_button_color)"
+                color="var(--control_stop_button_color)">
                 <rect width="14" height="14" x="5" y="5" />
               </svg>
             </div>
 
-            <div id="control_restart_button" class="control_button" role="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
-                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+            <div class="control_button">
+              <svg id="control_restart_button" class="control_button_disabled" role="button"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="var(--control_restart_button_color)"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="miter" fill="none"
+                color="var(--control_restart_button_color)">
                 <polyline points="22 12 19 15 16 12" />
                 <path
                   d="M11,20 C6.581722,20 3,16.418278 3,12 C3,7.581722 6.581722,4 11,4 C15.418278,4 19,7.581722 19,12 L19,14" />
               </svg>
             </div>
 
-            <div id="control_step_button" class="control_button" role="button">
-              <svg role="img" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24"
-                aria-labelledby="arrowRightIconTitle" stroke="#2329D6" stroke-width="1" stroke-linecap="round"
-                stroke-linejoin="round" fill="none" color="#2329D6">
+            <div class="control_button">
+              <svg id="control_step_button" class="control_button_disabled" role="button"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="arrowRightIconTitle"
+                stroke="var(--control_step_button_color)" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" fill="none" color="var(--control_step_button_color)">
                 <title id="arrowRightIconTitle">Arrow Right</title>
                 <path d="M15 18l6-6-6-6" />
                 <path d="M3 12h17" />
@@ -148,8 +114,6 @@
               <option value="0"> 0ms </option>
               <option value="10"> 10ms </option>
               <option value="100" selected> 100ms </option>
-              <option value="250"> 250ms </option>
-              <option value="500"> 500ms </option>
               <option value="1000"> 1000ms </option>
               <option value="-1"> manual </option>
             </select>
@@ -157,14 +121,16 @@
 
           <div class="control_right_container">
             <div id="console_log_clear_button" class="control_button" role="button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#2329D6" stroke-width="1"
-                stroke-linecap="round" stroke-linejoin="miter" fill="none" color="#2329D6">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="var(--control_log_clear_button_color)"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="miter" fill="none"
+                color="var(--control_log_clear_button_color)">
                 <circle cx="12" cy="12" r="10" />
                 <path stroke-linecap="square" d="M5,5 L19,19" />
               </svg>
             </div>
           </div>
         </div>
+
 
         <div id="console_log_container" class="console_log_container">
           <textarea id="console_log" class="console_log" readonly></textarea>
@@ -176,15 +142,14 @@
 
           <div class="console_input_form_header">
             <svg role="img" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24"
-              aria-labelledby="chevronRightIconTitle" stroke="#2329D6" stroke-width="3" stroke-linecap="round"
-              stroke-linejoin="round" fill="none" color="#2329D6">
+              aria-labelledby="chevronRightIconTitle" stroke="var(--purple1)" stroke-width="3" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" color="var(--purple1)">
               <title id="chevronRightIconTitle">Chevron Right</title>
               <polyline points="10 6 16 12 10 18 10 18" />
             </svg>
           </div>
 
           <input type="text" id="console_input_form" class="console_input_form" spellcheck="false">
-          <div class="gutter_horizontal"></div>
         </div>
 
         <div class="gutter_vertical" style="background-color: var(--green1);"></div>
@@ -212,19 +177,6 @@
   <script src="memory_view.js"></script>
 
   <script src="mode_change.js"></script>
-  <script>
-    /*
-    document.getElementById("play_button").addEventListener("click", () => {
-      change_toPlayMode();
-    });
-
-    document.getElementById("back_button").addEventListener("click", () => {
-      change_toSettingMode();
-    });
-    */
-    change_toPlayMode();
-
-  </script>
 </body>
 
 </html>

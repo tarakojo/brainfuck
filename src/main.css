@@ -1,7 +1,3 @@
-:root{
-  --test_sidebarw : 25%;
-}
-
 
 textarea{
   resize: none;
@@ -16,32 +12,9 @@ input {
   font-family: Consolas, Menlo, Monaco, -apple-system, BlinkMacSystemFont, "Segoe UI", Meiryo, monospace;
 }
 
-.flex_row{
-  display: flex;
-  flex-direction: row;
+::selection {
+  background: var(--purple1)
 }
-
-.flex_col{
-  display: flex;
-  flex-direction: column;
-}
-
-.flex_1{
-  flex: 1;
-}
-
-.modechange_transition{
-  transition: width 500ms 0ms ease;  
-}
-
-.overflow_x_auto{
-  overflow-x: auto;
-}
-
-.overflow_y_auto{
-  overflow-y: auto;
-}
-
 
 .app_container {
   height: 100vh;
@@ -55,28 +28,12 @@ input {
 }
 
 .sidebar_container{
-  width: var(--test_sidebarw);
-  min-width: 50px;
+  width: 3%;
+  min-width: 40px;
   display: flex;
   flex-direction: row;
 
-  background-color: var(--black1);
-}
-
-.setting_mode_sidebar_container{
-  overflow-x: hidden;
-  overflow-y: hidden;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.play_mode_sidebar{
-  overflow-x: hidden;
-  overflow-y: hidden;
-  width: 0%;
-  display: flex;
-  flex-direction: column;
+  background-color: var(--green1);
 }
 
 .main_container{
@@ -107,17 +64,7 @@ input {
 }
 
 .interpreter_container{
-  width: 0%;
+  width: 50%;
   display: flex;
   flex-direction: column;
-}
-
-.play_button_container{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-::selection {
-  background: var(--purple1)
 }

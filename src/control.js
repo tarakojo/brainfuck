@@ -1,3 +1,11 @@
+let control = {
+  play_disabled: false,
+  pause_disabled: false,
+  stop_disabled: false,
+  restart_disabled: false,
+  step_disabled: false
+};
+
 
 (() => {
   const play = document.getElementById("control_play_button");
@@ -7,16 +15,51 @@
   const step = document.getElementById("control_step_button");
   const interval = document.getElementById("control_interval");
 
-  document.addEventListener("player_updated", () => {
-    play.disabled = !(player.state == player.state_index.stop || player.state == player.state_index.pause);
-    pause.disabled = !(player.state != player.state_index.stop && player.interval != player.interval_manual && player.state != player.state_index.pause);
-    stop.disabled = !(player.state != player.state_index.stop);
-    restart.disabled = !(player.state != player.state_index.stop);
-    step.disabled = !(player.state == player.state_index.pause);
+  const update = () => {
+    control.play_disabled = !(player.state == player.state_index.stop || player.state == player.state_index.pause);
+    control.pause_disabled = !(player.state != player.state_index.stop && player.interval != player.interval_manual && player.state != player.state_index.pause);
+    control.stop_disabled = !(player.state != player.state_index.stop);
+    control.restart_disabled = !(player.state != player.state_index.stop);
+    control.step_disabled = !(player.state == player.state_index.pause);
     interval.disabled = !(player.state == player.state_index.stop || player.state == player.state_index.pause);
-  });
+
+    if (control.play_disabled) {
+      play.classList.add("control_filled_button_disabled");
+    }
+    else {
+      play.classList.remove("control_filled_button_disabled");
+    }
+    if (control.pause_disabled) {
+      pause.classList.add("control_filled_button_disabled");
+    }
+    else {
+      pause.classList.remove("control_filled_button_disabled");
+    }
+    if (control.stop_disabled) {
+      stop.classList.add("control_filled_button_disabled");
+    }
+    else {
+      stop.classList.remove("control_filled_button_disabled");
+    }
+    if (control.restart_disabled) {
+      restart.classList.add("control_button_disabled");
+    }
+    else {
+      restart.classList.remove("control_button_disabled");
+    }
+    if (control.step_disabled) {
+      step.classList.add("control_button_disabled");
+    }
+    else {
+      step.classList.remove("control_button_disabled");
+    }
+  };
+  update();
+
+  document.addEventListener("player_updated", update);
 
   play.onclick = () => {
+    if (control.play_disabled) return;
     if (player.state == player.state_index.stop) {
       player.push(new player.query(player.query_index.start, 0));
     }
@@ -26,18 +69,22 @@
   };
 
   pause.onclick = () => {
+    if (control.pause_disabled) return;
     player.push(new player.query(player.query_index.pause, 0));
   };
 
   stop.onclick = () => {
+    if (control.stop_disabled) return;
     player.push(new player.query(player.query_index.stop, 0));
   };
 
   restart.onclick = () => {
+    if (control.restart_disabled) return;
     player.push(new player.query(player.query_index.restart, 0));
   };
 
   step.onclick = () => {
+    if (control.step_disabled) return;
     player.push(new player.query(player.query_index.step, 0));
   };
 
