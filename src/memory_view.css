@@ -3,7 +3,7 @@
   height: 45%;
   min-height: 10%;
   max-height: 80%;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: scroll;
 
   font-size: small;

@@ -2,25 +2,24 @@
 
 :root{
   --purple1:#AD1457;
-  --purple2:#3b2730;
+  --purple2:#271c22;
 
-  --black1:#2F2D32;
+  --black1:#1f1f20;
 
-  --green1: #66BB6A;
+  --green1: rgb(39, 83, 58);
   --green2:#3a6d3c;
-  --green3:rgb(39, 83, 58);
-
-  --white1:#fffbee;
+  
+  --white1:#fffefa;
   --white2:#FFECB3;
 
   --blue1:#437683;
 
-  --scrollbar_background_color: var(--purple2);
+  --scrollbar_background_color: #22191d;
   --scrollbar_thumb_color:var(--green2);
 
   --memory_view_background_color:var(--black1);
   --memory_viwe_pointer_background_color:var(--purple1);
-  --memory_view_border_color:var(--green3);
+  --memory_view_border_color:var(--green1);
   --memory_view_index_color: var(--blue1);
   --memory_view_value_color: var(--white2);
 
@@ -29,17 +28,17 @@
   --input_buffer_background_color: var(--green2);
   --input_buffer_color: var(--white1);
 
-  --control_background_color: var(--green2);
+  --control_background_color: var(--green1);
   --control_color:var(--white2);
   
-  --control_play_button_color:var(--green1);
+  --control_play_button_color:#66BB6A;
   --control_pause_button_color:#7AC0FF;
   --control_stop_button_color:#F38B76;
   --control_restart_button_color:var(--white1);
   --control_step_button_color:var(--white1);
   --control_log_clear_button_color:var(--white1);
 
-  --control_button_disabled_color:var(--green3);
+  --control_button_disabled_color:var(--green2);
 
   --console_log_background_color:var(--black1);
   --console_log_color:var(--white1);
@@ -48,14 +47,21 @@
   --console_input_color:var(--white1);
   --console_input_header_background_color:var(--green1);
 
+  --editor_header_background_color:var(--green1);
+  --editor_header_color:var(--white2);
+
   --editor_linenumbers_background_color : var(--black1);
   --editor_linenumbers_color: var(--blue1);
   --editor_cursor_color:var(--white2);
+  --editor_backgronud_color:var(--black1);
   --editor_color:var(--white1);
   --editor_selected_color:var(--purple1);
 
   --horizontal_gutter_color:var(--green1);
   --vertical_gutter_color:var(--green1);
 
-  --play_mode_sidebar_background_color:var(--green1)
+  --sidebar_background_color:var(--green1);
+
+  --brain_icon_background_color:var(--green1);
+  --brain_icon_color:var(--white2);
 }

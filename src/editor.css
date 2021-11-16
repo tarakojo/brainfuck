@@ -1,0 +1,36 @@
+
+:root{
+  --editor_header_height:35px;
+}
+
+.editor_container{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.editor_header{
+  height: var(--editor_header_height);
+  width: 100%;
+  background-color: var(--editor_header_background_color);
+  color:var(--editor_header_color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.brain_icon_container{
+  height:var(--editor_header_height);
+  width:var(--editor_header_height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editor{
+  height: 100%;
+  width: 100%;
+  flex:1;
+}
