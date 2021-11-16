@@ -29,6 +29,17 @@
   align-items: center;
 }
 
+.editor_header_title{
+  height: 100%;
+  width: fit-content;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
 .editor{
   height: 100%;
   width: 100%;

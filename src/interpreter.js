@@ -30,7 +30,7 @@ interpreter.step = () => {
 
   switch (opc) {
     case opcode.pointer_add:
-      ip.memoryPointer = (ip.memoryPointer + ope) % ip.memorySize;
+      ip.memoryPointer = (ip.memoryPointer + ope + ip.memorySize) % ip.memorySize;
       break;
     case opcode.memory_add:
       ip.memory[ip.memoryPointer] += ope;

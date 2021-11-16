@@ -6,7 +6,7 @@
 
   --black1:#1f1f20;
 
-  --green1: rgb(39, 83, 58);
+  --green1: #27533A;
   --green2:#3a6d3c;
   
   --white1:#fffefa;
@@ -62,6 +62,5 @@
 
   --sidebar_background_color:var(--green1);
 
-  --brain_icon_background_color:var(--green1);
   --brain_icon_color:var(--white2);
 }
