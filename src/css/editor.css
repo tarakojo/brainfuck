@@ -12,6 +12,12 @@
   overflow-y: hidden;
 }
 
+.editor{
+  height: 100%;
+  width: 100%;
+  flex:1;
+}
+
 .editor_header{
   height: var(--editor_header_height);
   width: 100%;
@@ -35,7 +41,6 @@
 .editor_header_title{
   height: 100%;
   width: fit-content;
-  flex: 1;
   display: flex;
   align-items: center;
   font-size: 18px;
@@ -43,10 +48,18 @@
   padding-left: 5px;
 }
 
-.editor{
+.editor_header_controls{
   height: 100%;
   width: 100%;
   flex:1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sample_code_selector_container{
+  padding-top: 3px;
+  padding-right: 2px;
 }
 
 .editor_header_button{
