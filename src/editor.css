@@ -1,6 +1,7 @@
 
 :root{
   --editor_header_height:35px;
+  --editor_header_button_height : 30px;
 }
 
 .editor_container{
@@ -19,6 +20,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  overflow-x: auto;
+  overflow-y:hidden;
 }
 
 .brain_icon_container{
@@ -44,4 +47,24 @@
   height: 100%;
   width: 100%;
   flex:1;
+}
+
+.editor_header_button{
+  height: var(--editor_header_button_height);
+  width: var(--editor_header_button_height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor_header_button svg{
+  height: 75%;
+  width: 75%;
+  transition: all 0.15s 0s ease;
+}
+
+.editor_header_button svg:active {
+  height: 65%;
+  width: 65%;
+  transition: all 0.15s 0s ease;
 }

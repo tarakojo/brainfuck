@@ -1,7 +1,7 @@
 
 
 :root{
-  --purple1:#AD1457;
+  --purple1:#cf005a;
   --purple2:#271c22;
 
   --black1:#1f1f20;
@@ -63,4 +63,6 @@
   --sidebar_background_color:var(--green1);
 
   --brain_icon_color:var(--white2);
+
+  --info_button_color:var(--white2);
 }
