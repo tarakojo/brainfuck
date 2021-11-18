@@ -12,6 +12,12 @@ player.query_index = {
   interval: 6
 };
 
+player.state_index = {
+  stop: 0,
+  pause: 1,
+  interval: 2
+}
+
 player.query = class {
   constructor(index, interval_value) {
     this.index = index;
@@ -19,42 +25,75 @@ player.query = class {
   }
 };
 
-player.state_index = {
-  stop: 0,
-  pause: 1,
-  step: 2,
-  interval: 3
+//状態
+player.state = player.state_index.stop;
+
+//interval
+player.interval = 10;
+//intervalがmanualのときの値
+player.interval_manual = -1;
+
+//ループの間隔
+player.delay = 50;
+//1ループ内でのインタプリタ処理時間の最大
+player.tick = 50;
+
+//ループで1ステップ実行をするか
+player.step_flag = false;
+
+//プログラムのintervalモード開始時刻
+player.interval_start = 0;
+//インタプリタのintervalモード開始からのステップ数
+player.interval_step = 0;
+//リセット関数
+player.reset_intervalModeInfo = () => {
+  player.interval_start = performance.now();
+  player.interval_step = 0;
 }
 
-player.state = player.state_index.stop;
-player.interval = 10;
-
-player.interval_manual = -1;
-player.tick = 50;
-player.delay_default = 50;
-
+//クエリキュー
 player.queue = [];
 player.push = (q) => { player.queue.push(q); };
 
+//状態更新イベント
 player.updated_event = new CustomEvent("player_updated", { bubbles: false });
 
+//ループ終了フラグ。ページが閉じられるときにtrueとなる
 player.end = false;
-
 document.addEventListener("beforeunload", () => { player.end = true; });
 
 
+//状態の設定
+player.set_state = (s) => {
+  switch (s) {
+    case player.state_index.stop:
+      editor.unlock();
+      break;
+    case player.state_index.pause:
+      break;
+    case player.state_index.interval:
+      player.reset_intervalModeInfo();
+      break;
+    default:
+      alert("internal error: invalid state change");
+      return;
+  };
+  player.state = s;
+  document.dispatchEvent(player.updated_event);
+}
+
 player.start = () => {
 
-  //コンパイル、インタプリタの準備
+  //エディタロック
+  editor.lock();
+
+  //コンパイル
   let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "//"]);
   if (!t.check_valid()) {
     alert("compile error: invalid token set");
     player.proc_query(new player.query(player.query_index.stop, 0));
     return;
   }
-
-  editor.lock();
-
   let p = compiler.compile(editor.getValue(), t);
   if (p == null) {
     alert("compile error: unbalanced brackets");
@@ -66,20 +105,25 @@ player.start = () => {
     player.proc_query(new player.query(player.query_index.stop, 0));
     return;
   }
+
+  //インタプリタの準備
   interpreter.init(p);
+
+  //メモリビューの更新を強制
+  memoryView.update();
 
   //入力状態を更新
   player.waitInput = false;
   inputBuffer.clear();
-
   consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
+
+  //manualなら即pause
   if (player.interval == player.interval_manual) {
-    player.state = player.state_index.pause;
+    player.set_state(player.state_index.pause);
   }
   else {
-    player.state = player.state_index.interval;
+    player.set_state(player.state_index.interval);
   }
-  memoryView.update();
 }
 
 player.proc_query = (q) => {
@@ -89,64 +133,77 @@ player.proc_query = (q) => {
       player.start();
       break;
     case player.query_index.stop:
-      if (player.state == player.state_index.stop) return;
-      player.state = player.state_index.stop;
-      editor.unlock();
+      player.set_state(player.state_index.stop);
       break;
     case player.query_index.pause:
-      if (player.state != player.state_index.interval && player.state != player.state_index.step) return;
-      player.state = player.state_index.pause;
+      player.set_state(player.state_index.pause);
       break;
     case player.query_index.resume:
       if (player.state != player.state_index.pause) return;
       if (player.interval == player.interval_manual) return;
-      player.state = player.state_index.interval;
+      player.set_state(player.state_index.interval);
       break;
     case player.query_index.step:
       if (player.state != player.state_index.pause) return;
-      player.state = player.state_index.step;
+      player.step_flag = true;
       break;
     case player.query_index.restart:
       player.start();
       break;
     case player.query_index.interval:
       player.interval = q.interval_value;
+      player.reset_intervalModeInfo();
       break;
     default:
       alert("internal error: invalid control query");
   };
-  document.dispatchEvent(player.updated_event);
 };
 
 player.loop = () => {
+  //ループ終了フラグをチェック
   if (player.end) return;
+
   new Promise((resolve) => {
+    //1ステップ実行フラグを初期化
+    player.step_flag = false;
+
+    //クエリ処理
     while (player.queue.length > 0) {
       player.proc_query(player.queue[0]);
       player.queue.shift();
     }
+
     let r = 1;
     switch (player.state) {
       case player.state_index.stop:
-      case player.state_index.pause:
         break;
-      case player.state_index.step:
-        r = player.run_step();
-        player.proc_query(new player.query(player.query_index.pause, 0));
+      case player.state_index.pause:
+        //1ステップ実行するなら
+        if (player.step_flag) {
+          r = player.run_step();
+        }
         break;
       case player.state_index.interval:
+        if (player.interval < 0) {
+          alert("internal error: invalid interval");
+          return;
+        }
         if (player.interval == 0) r = player.run_tick();
-        else r = player.run_step();
+        else r = player.run_interval();
         break;
       default:
         alert("internal error: invalid player state");
     };
+    //インタプリタが終了したとき
     if (r == 0) {
-      player.proc_query(new player.query(player.query_index.stop, 0));
+      player.set_state(player.state_index.stop);
       consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
     }
-    setTimeout(resolve,
-      (player.state == player.state_index.interval && player.interval > 0 ? player.interval : player.delay_default));
+    //入力待ちのとき
+    else if (r == -1) {
+      player.reset_intervalModeInfo();
+    }
+    setTimeout(resolve, player.delay);
   }).then(player.loop);
 };
 player.loop();
@@ -160,5 +217,34 @@ player.run_tick = () => {
     r = interpreter.step();
     if (r != 1) return r;
   } while (!timeout);
+  return 1;
+};
+player.run_interval = () => {
+  if (player.interval <= 0) {
+    alert("internal error in function : run_interval");
+    return;
+  }
+  //今回の処理数
+  let now = performance.now();
+  let cnt = Math.floor((now - player.interval_start) / player.interval) - player.interval_step;
+  //タイムアウト設定
+  let timeout = false;
+  setTimeout(() => { timeout = true }, player.tick);
+  //ループ
+  let r;
+  do {
+    if (cnt <= 0) break;
+    --cnt;
+    ++player.interval_step;
+    r = interpreter.step();
+    if (r != 1) return r;
+  } while (!timeout);
+  if (cnt > 0) {
+    //処理しきれていないとき
+    console.log("delay-" + String(cnt));
+  }
+  else {
+    console.log((performance.now() - now) / player.tick);
+  }
   return 1;
 };

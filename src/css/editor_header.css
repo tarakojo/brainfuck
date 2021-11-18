@@ -20,6 +20,11 @@
   align-items: center;
 }
 
+.brain_icon{
+  height: 100%;
+  width: 100%;;
+}
+
 .editor_header_title{
   height: 100%;
   width: fit-content;

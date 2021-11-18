@@ -5,6 +5,7 @@ let interpreter = {
   program: null,
   programCounter: 0,
   memoryPointer: 0,
+  stepCount: 0,
   jumpStack: []
 };
 interpreter.memory = new Uint8Array(interpreter.memorySize);
@@ -16,6 +17,7 @@ interpreter.init = (program) => {
   interpreter.program = program;
   interpreter.programCounter = 0;
   interpreter.memoryPointer = 0;
+  interpreter.stepCount = 0;
   interpreter.jumpStack = [];
 }
 
@@ -52,7 +54,7 @@ interpreter.step = () => {
       alert("internal error");
       break;
   };
-
+  ip.stepCount++;
   ip.programCounter++;
   return (ip.programCounter === ip.program.length) ? 0 : 1;
 }

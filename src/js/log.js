@@ -15,7 +15,9 @@ consoleLog.clear = () => {
 }
 
 consoleLog.write = (str, next = { break_interpreter: false, break_input: true, write_inputPrefix: true }) => {
-  document.getElementById("console_log").value += str;
+  const c = document.getElementById("console_log");
+  c.value += str;
+  c.scrollTop = c.scrollHeight;
   consoleLog.next = next;
 };
 

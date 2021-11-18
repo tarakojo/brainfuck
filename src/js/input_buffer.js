@@ -39,9 +39,10 @@ inputBuffer.pop = () => {
 //inputBuffer_cleredEventを発行
 inputBuffer.clear = () => {
   inputBuffer.data = [];
+  inputBuffer.empty = true;
   document.dispatchEvent(inputBuffer.clearedEvent);
 }
 
 inputBuffer.check_empty = () => {
-  return inputBuffer.data.length === 0;
+  return inputBuffer.empty;
 }

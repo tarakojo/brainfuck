@@ -17,7 +17,7 @@ let control = {
 
   const update = () => {
     control.play_disabled = !(player.state == player.state_index.stop || player.state == player.state_index.pause);
-    control.pause_disabled = !(player.state != player.state_index.stop && player.interval != player.interval_manual && player.state != player.state_index.pause);
+    control.pause_disabled = !(player.state == player.state_index.interval);
     control.stop_disabled = !(player.state != player.state_index.stop);
     control.restart_disabled = !(player.state != player.state_index.stop);
     control.step_disabled = !(player.state == player.state_index.pause);
