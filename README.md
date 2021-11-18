@@ -2,9 +2,11 @@
 
 Brainfuck interpreter  
 
-As in C, each line after "//" will be ignored.  
-  
-Please note that local files will be loaded and saved as utf-8.  
+* 1024 memory cells.
+* Each cell is 8 bits.
+* As in C, each line after "//" will be ignored.  
+* local files will be loaded and saved as utf-8.  
+* The memory is cyclic. The cell at position 0 and the cell at position 1023 are adjacent to each other.
 
 your feedback is welcome!  
 
