@@ -12,6 +12,16 @@ input {
   font-family: Consolas, Menlo, Monaco, -apple-system, BlinkMacSystemFont, "Segoe UI", Meiryo, monospace;
 }
 
+select{
+  background-color: var(--select_background_color);
+  color:var(--select_color);
+  border-color: var(--select_border_color);
+}
+option{
+  background-color: var(--option_background_color);
+  color: var(--option_color);
+}
+
 ::selection {
   background: var(--purple1)
 }
@@ -48,3 +58,4 @@ input {
   display: flex;
   flex-direction: column;
 }
+

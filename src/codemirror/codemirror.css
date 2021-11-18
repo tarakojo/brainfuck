@@ -13,6 +13,7 @@
   border: 0;
   color: var(--char_color);
   direction: ltr;
+  font-size: smaller;
 }
 
 /* PADDING */

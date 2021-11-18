@@ -9,75 +9,13 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y:hidden;
 }
 
 .editor{
   height: 100%;
   width: 100%;
+  overflow-x:hidden;
+  overflow-y: hidden;
   flex:1;
-}
-
-.editor_header{
-  height: var(--editor_header_height);
-  width: 100%;
-  background-color: var(--editor_header_background_color);
-  color:var(--editor_header_color);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  overflow-x: auto;
-  overflow-y:hidden;
-}
-
-.brain_icon_container{
-  height:var(--editor_header_height);
-  width:var(--editor_header_height);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.editor_header_title{
-  height: 100%;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  padding-top: 10px;
-  padding-left: 5px;
-}
-
-.editor_header_controls{
-  height: 100%;
-  width: 100%;
-  flex:1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.sample_code_selector_container{
-  padding-top: 3px;
-  padding-right: 2px;
-}
-
-.editor_header_button{
-  height: var(--editor_header_button_height);
-  width: var(--editor_header_button_height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.editor_header_button svg{
-  height: 75%;
-  width: 75%;
-  transition: all 0.15s 0s ease;
-}
-
-.editor_header_button svg:active {
-  height: 65%;
-  width: 65%;
-  transition: all 0.15s 0s ease;
 }

@@ -2,7 +2,7 @@
 
 :root{
   --purple1:#cf005a;
-  --purple2:#271c22;
+  --purple2:#54b6bd;
 
   --black1:#1f1f20;
 
@@ -16,6 +16,12 @@
 
   --scrollbar_background_color: #22191d;
   --scrollbar_thumb_color:var(--green2);
+
+  --select_backgronud_color:var(--green1);
+  --select_color:var(--white2);
+  --select_border_color:gray;
+  --option_background_color:var(--green1);
+  --option_color:var(--white2);
 
   --memory_view_background_color:var(--black1);
   --memory_viwe_pointer_background_color:var(--purple1);
@@ -65,4 +71,5 @@
   --brain_icon_color:var(--white2);
 
   --editor_header_button_color:var(--white2);
+  --setting_button_color:var(--white2);
 }

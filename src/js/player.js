@@ -27,7 +27,7 @@ player.state_index = {
 }
 
 player.state = player.state_index.stop;
-player.interval = 100;
+player.interval = 10;
 
 player.interval_manual = -1;
 player.tick = 50;
@@ -43,21 +43,28 @@ player.end = false;
 document.addEventListener("beforeunload", () => { player.end = true; });
 
 
-player.init = () => {
+player.start = () => {
+
   //コンパイル、インタプリタの準備
-  let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "#"]);
+  let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "//"]);
   if (!t.check_valid()) {
     alert("compile error: invalid token set");
-    return false;
+    player.proc_query(new player.query(player.query_index.stop, 0));
+    return;
   }
+
+  editor.lock();
+
   let p = compiler.compile(editor.getValue(), t);
   if (p == null) {
     alert("compile error: unbalanced brackets");
-    return false;
+    player.proc_query(new player.query(player.query_index.stop, 0));
+    return;
   }
   if (p.length == 0) {
     alert("compile error: source is empty");
-    return false;
+    player.proc_query(new player.query(player.query_index.stop, 0));
+    return;
   }
   interpreter.init(p);
 
@@ -65,14 +72,6 @@ player.init = () => {
   player.waitInput = false;
   inputBuffer.clear();
 
-  return true;
-};
-
-player.start = () => {
-  if (!player.init()) {
-    player.state = player.state_index.stop;
-    return false;
-  }
   consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
   if (player.interval == player.interval_manual) {
     player.state = player.state_index.pause;
@@ -81,12 +80,6 @@ player.start = () => {
     player.state = player.state_index.interval;
   }
   memoryView.update();
-  return true;
-}
-
-player.stop = () => {
-  player.proc_query(new player.query(player.query_index.stop, 0));
-  consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
 }
 
 player.proc_query = (q) => {
@@ -98,6 +91,7 @@ player.proc_query = (q) => {
     case player.query_index.stop:
       if (player.state == player.state_index.stop) return;
       player.state = player.state_index.stop;
+      editor.unlock();
       break;
     case player.query_index.pause:
       if (player.state != player.state_index.interval && player.state != player.state_index.step) return;
@@ -147,7 +141,10 @@ player.loop = () => {
       default:
         alert("internal error: invalid player state");
     };
-    if (r == 0) player.stop();
+    if (r == 0) {
+      player.proc_query(new player.query(player.query_index.stop, 0));
+      consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
+    }
     setTimeout(resolve,
       (player.state == player.state_index.interval && player.interval > 0 ? player.interval : player.delay_default));
   }).then(player.loop);
