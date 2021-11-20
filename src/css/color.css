@@ -17,6 +17,8 @@
   --scrollbar_background_color: #22191d;
   --scrollbar_thumb_color:var(--green2);
 
+  --selected_text_background_color : #49483E;
+
   --select_backgronud_color:var(--green1);
   --select_color:var(--white2);
   --select_border_color:gray;
@@ -61,7 +63,6 @@
   --editor_cursor_color:var(--white2);
   --editor_backgronud_color:var(--black1);
   --editor_color:var(--white1);
-  --editor_selected_color:var(--purple1);
 
   --horizontal_gutter_color:var(--green1);
   --vertical_gutter_color:var(--green1);

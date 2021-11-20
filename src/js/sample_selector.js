@@ -23,3 +23,7 @@ document.getElementById("sample_selector").addEventListener("change", () => {
   editor.setValue(sample_selector.sample.get(s.value));
   s.selectedIndex = 0;
 });
+
+document.addEventListener("player_updated", () => {
+  document.getElementById("sample_selector").disabled = !(player.state == player.state_index.stop);
+});

@@ -3,6 +3,7 @@ textarea{
   resize: none;
   border: 0;
   outline: none;
+  word-break: break-all;
   font-family: Consolas, Menlo, Monaco, -apple-system, BlinkMacSystemFont, "Segoe UI", Meiryo, monospace;
 }
 
@@ -23,7 +24,7 @@ option{
 }
 
 ::selection {
-  background: var(--purple1)
+  background: var(--selected_text_background_color)
 }
 
 .app_container {

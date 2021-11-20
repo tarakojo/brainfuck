@@ -62,3 +62,24 @@
   color:var(--control_button_disabled_color) !important;
   fill: var(--control_button_disabled_color) !important;
 }
+
+.step_counter{
+  width: fit-content;
+  font-size: small;
+  padding-top: 10px;
+  padding-right: 15px;
+}
+
+.capacity_header{
+  width: fit-content;
+  font-size: small;
+  padding-top: 10px;
+}
+
+.capacity_value{
+  width: 5ch;
+  font-size: small;
+  padding-top: 10px;
+  overflow-x: hidden;
+  text-align: right;
+}

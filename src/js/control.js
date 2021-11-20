@@ -97,3 +97,13 @@ let control = {
 document.getElementById("console_log_clear_button").onclick = () => {
   consoleLog.clear();
 };
+
+setInterval(() => {
+  document.getElementById("step_counter").innerHTML = interpreter.stepCount + "&nbsp;steps";
+
+  const c = Math.floor(player.capacity * 100);
+  let s = "";
+  if (c < 0) s = "over";
+  else s = String(c) + "%";
+  document.getElementById("capacity_value").innerHTML = s;
+}, 333.333);

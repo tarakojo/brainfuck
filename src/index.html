@@ -232,7 +232,9 @@
 
           <div style="padding-left: 5px;">interval:&nbsp;</div>
           <select id="control_interval">
-            <option value="0"> 0ms </option>
+            <option value="0"> no interval </option>
+            <option value="0.001"> 0.001ms </option>
+            <option value="0.01"> 0.01ms </option>
             <option value="0.1"> 0.1ms </option>
             <option value="1"> 1ms </option>
             <option value="10" selected> 10ms </option>
@@ -243,6 +245,12 @@
         </div>
 
         <div class="control_right_container">
+
+          <div id="step_counter" class="step_counter">0&nbsp;steps</div>
+          <div id="capacity_header" clasS="capacity_header">capacity</div>
+          <div id="capacity_value" class="capacity_value">0%</div>
+          <div style="width: 10px;"></div>
+          
           <div id="console_log_clear_button" class="control_button" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="var(--control_log_clear_button_color)"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="miter" fill="none"
@@ -281,6 +289,7 @@
   </div>
 
   <script src="codemirror/codemirror.js"></script>
+  <script src="codemirror/simple.js"></script>
 
   <script src="js/info_button.js"></script>
   <script src="js/file.js"></script>
@@ -294,7 +303,8 @@
   <script src="js/input_form.js"></script>
   <script src="js/input_buffer_view.js"></script>
 
-  <script src="js/types.js"></script>
+  <script src="js/operation.js"></script>
+  <script src="js/token.js"></script>
   <script src="js/tokenizer.js"></script>
   <script src="js/compiler.js"></script>
   <script src="js/interpreter.js"></script>

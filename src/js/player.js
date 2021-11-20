@@ -36,7 +36,7 @@ player.interval_manual = -1;
 //ループの間隔
 player.delay = 50;
 //1ループ内でのインタプリタ処理時間の最大
-player.tick = 50;
+player.tick = 5;
 
 //ループで1ステップ実行をするか
 player.step_flag = false;
@@ -50,6 +50,9 @@ player.reset_intervalModeInfo = () => {
   player.interval_start = performance.now();
   player.interval_step = 0;
 }
+
+//処理キャパシティー
+player.capacity = 0;
 
 //クエリキュー
 player.queue = [];
@@ -67,9 +70,11 @@ document.addEventListener("beforeunload", () => { player.end = true; });
 player.set_state = (s) => {
   switch (s) {
     case player.state_index.stop:
+      player.capacity = 0;
       editor.unlock();
       break;
     case player.state_index.pause:
+      player.capacity = 0;
       break;
     case player.state_index.interval:
       player.reset_intervalModeInfo();
@@ -88,13 +93,12 @@ player.start = () => {
   editor.lock();
 
   //コンパイル
-  let t = new Token([">", "<", "+", "-", ".", ",", "[", "]", "//"]);
-  if (!t.check_valid()) {
+  if (!token.token.check_valid()) {
     alert("compile error: invalid token set");
     player.proc_query(new player.query(player.query_index.stop, 0));
     return;
   }
-  let p = compiler.compile(editor.getValue(), t);
+  let p = compiler.compile(editor.getValue(), token.token);
   if (p == null) {
     alert("compile error: unbalanced brackets");
     player.proc_query(new player.query(player.query_index.stop, 0));
@@ -115,7 +119,6 @@ player.start = () => {
   //入力状態を更新
   player.waitInput = false;
   inputBuffer.clear();
-  consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
 
   //manualなら即pause
   if (player.interval == player.interval_manual) {
@@ -197,11 +200,12 @@ player.loop = () => {
     //インタプリタが終了したとき
     if (r == 0) {
       player.set_state(player.state_index.stop);
-      consoleLog.write("", { break_interpreter: true, break_input: true, write_inputPrefix: true });
+      consoleLog.newline();
     }
     //入力待ちのとき
     else if (r == -1) {
       player.reset_intervalModeInfo();
+      player.capacity = 0;
     }
     setTimeout(resolve, player.delay);
   }).then(player.loop);
@@ -210,13 +214,13 @@ player.loop();
 
 player.run_step = interpreter.step;
 player.run_tick = () => {
-  let timeout = false;
-  setTimeout(() => { timeout = true }, player.tick);
+  let timeout = performance.now() + player.tick;
   let r;
   do {
     r = interpreter.step();
     if (r != 1) return r;
-  } while (!timeout);
+  } while (performance.now() < timeout);
+  player.capacity = 1;
   return 1;
 };
 player.run_interval = () => {
@@ -228,8 +232,7 @@ player.run_interval = () => {
   let now = performance.now();
   let cnt = Math.floor((now - player.interval_start) / player.interval) - player.interval_step;
   //タイムアウト設定
-  let timeout = false;
-  setTimeout(() => { timeout = true }, player.tick);
+  let timeout = performance.now() + player.tick;
   //ループ
   let r;
   do {
@@ -238,13 +241,8 @@ player.run_interval = () => {
     ++player.interval_step;
     r = interpreter.step();
     if (r != 1) return r;
-  } while (!timeout);
-  if (cnt > 0) {
-    //処理しきれていないとき
-    console.log("delay-" + String(cnt));
-  }
-  else {
-    console.log((performance.now() - now) / player.tick);
-  }
+  } while (performance.now() < timeout);
+  if (cnt > 0) { player.capacity = -1; }
+  else { player.capacity = (performance.now() - now) / player.tick; }
   return 1;
 };
