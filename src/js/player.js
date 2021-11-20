@@ -71,7 +71,7 @@ player.set_state = (s) => {
   switch (s) {
     case player.state_index.stop:
       player.capacity = 0;
-      editor.unlock();
+      editor.setEditMode();
       break;
     case player.state_index.pause:
       player.capacity = 0;
@@ -90,28 +90,13 @@ player.set_state = (s) => {
 player.start = () => {
 
   //エディタロック
-  editor.lock();
-
-  //コンパイル
-  if (!token.token.check_valid()) {
-    alert("compile error: invalid token set");
-    player.proc_query(new player.query(player.query_index.stop, 0));
-    return;
-  }
-  let p = compiler.compile(editor.getValue(), token.token);
-  if (p == null) {
-    alert("compile error: unbalanced brackets");
-    player.proc_query(new player.query(player.query_index.stop, 0));
-    return;
-  }
-  if (p.length == 0) {
-    alert("compile error: source is empty");
-    player.proc_query(new player.query(player.query_index.stop, 0));
-    return;
-  }
+  editor.setPlayMode();
 
   //インタプリタの準備
-  interpreter.init(p);
+  if (!interpreter.init()) {
+    player.proc_query(new player.query(player.query_index.stop, 0));
+    return;
+  }
 
   //メモリビューの更新を強制
   memoryView.update();

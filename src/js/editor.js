@@ -1,55 +1,77 @@
+CodeMirror.defineMode("mymode", function () {
+  return {
+    token: function (stream, state) {
+      let r = stream.next();
+      if (r == null) return null;
+      switch (r) {
+        case ">": return "pi";
+        case "<": return "pd";
+        case "+": return "mi";
+        case "-": return "md";
+        case "[": return "lb";
+        case "]": return "rb";
+        case ".": return "put";
+        case ",": return "get";
+      }
+      if (r == "/" && stream.peek() == "/") stream.skipToEnd();
+      return "comment";
+    }
+  };
+});
 
 let editor = {
-  locked: false,
-  mode_cnt: 0,
-  location: [],
-  delay: 50
+  playMode: false,
+  delay: 20,
+  loopEnd: false
 };
 
-editor.set_location = (l) => { editor_highlight.location = l; }
+document.addEventListener("beforeunload", () => { editor.loopEnd = true; });
 
 editor.editor = CodeMirror.fromTextArea(document.getElementById("editor_body"), {
   lineNumbers: true,
   theme: "mymonokai",
-  mode: "mymode"
+  mode: "mymode",
+  autoCloseBrackets: true
 });
 
 editor.getValue = () => { return editor.editor.getValue(); }
 editor.setValue = (str) => { editor.editor.setValue(str); }
 
-editor.lock = () => { editor.locked = true; }
-editor.unlock = () => {  editor.locked = false;}
-
-editor.editor.on("beforeChange", (e, c) => {
-  if (editor.locked) c.cancel();
-});
-
-editor.update_mode = () => {
-  const v = token.token.value;
-  CodeMirror.defineMode("mode" + String(++editor.mode_cnt), () => {
-    return {
-      token: (stream, state) => {
-        if (stream.match(v[token.token_index.comment])) {
-          stream.skipToEnd();
-          return "comment";
-        }
-        if (stream.match(v[token.token_index.if0_jump])) return "lb";
-        if (stream.match(v[token.token_index.ifnot0_jump])) return "rb";
-        if (stream.match(v[token.token_index.pointer_inclement])) return "pi";
-        if (stream.match(v[token.token_index.pointer_declement])) return "pd";
-        if (stream.match(v[token.token_index.memory_inclement])) return "mi";
-        if (stream.match(v[token.token_index.memory_declement])) return "md";
-        if (stream.match(v[token.token_index.put])) return "put";
-        if (stream.match(v[token.token_index.get])) return "get";
-        if (stream.next() != null) return "comment";
-        return null;
-      }
-    };
-  });
-  editor.editor.setOption("mode", "mode" + String(editor.mode_cnt));
+editor.setPlayMode = () => {
+  editor.playMode = true;
+  document.getElementById("editor").classList.add("editor_playmode");
+}
+editor.setEditMode = () => {
+  editor.set_cursor_endOfSource();
+  document.getElementById("editor").classList.remove("editor_playmode");
+  editor.playMode = false;
 }
 
-document.addEventListener("token_changed", () => {
-  editor.update_mode();
+editor.editor.on("beforeChange", (e, c) => {
+  if (editor.playMode) c.cancel();
 });
 
+editor.set_cursor_endOfSource = () => {
+  const loc = interpreter.location[interpreter.location.length - 1];
+  editor.editor.setCursor(loc.line, loc.ch)
+}
+
+editor.update_highlight = () => {
+  let pc = interpreter.programCounter;
+  if (pc >= interpreter.program.length) {
+    editor.set_cursor_endOfSource();
+    return;
+  }
+  const loc = interpreter.location[pc];
+  editor.editor.setSelection(loc, { line: loc.line, ch: loc.ch + 1 });
+}
+
+document.addEventListener("beforeunload", () => { editor.loopEnd = true; });
+editor.loop = () => {
+  if (editor.loopEnd) return;
+  new Promise((resolve) => {
+    if (editor.playMode) editor.update_highlight();
+    setTimeout(resolve, editor.delay);
+  }).then(editor.loop);
+}
+editor.loop();
