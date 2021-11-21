@@ -10,7 +10,7 @@
 .cm-s-mymonokai .CodeMirror-linenumber { color: var(--editor_linenumbers_color); }
 .cm-s-mymonokai .CodeMirror-cursor { border-left: 1px solid var(--editor_cursor_color); }
 
-.cm-s-mymonokai span.cm-lb { color: #9e9386; }
+.cm-s-mymonokai span.cm-lb { color: #fd971f; }
 .cm-s-mymonokai span.cm-rb { color: #fd971f; }
 .cm-s-mymonokai span.cm-mi { color: #f92672; }
 .cm-s-mymonokai span.cm-md { color: #f92672; }
@@ -19,14 +19,19 @@
 .cm-s-mymonokai span.cm-put { color: #a6e22e; }
 .cm-s-mymonokai span.cm-get { color: #ae81ff; }
 
+.editor_disabled span.cm-lb { color: #B26A17 !important; }
+.editor_disabled span.cm-rb { color: #B26A17 !important; }
+.editor_disabled span.cm-mi { color: #B51C54 !important; }
+.editor_disabled span.cm-md { color: #B51C54 !important; }
+.editor_disabled span.cm-pi { color: #4CA3B2 !important; }
+.editor_disabled span.cm-pd { color: #4CA3B2 !important; }
+.editor_disabled span.cm-put { color: #83B225 !important; }
+.editor_disabled span.cm-get { color: #8966C9 !important; }
+
 .cm-s-mymonokai span.cm-comment { color: #75715e; }
 
 .cm-s-mymonokai .CodeMirror-activeline-background { background: #373831; }
 .cm-s-mymonokai .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
-}
-
-.editor_playmode .CodeMirror-selected{
-  background: var(--purple1) !important;
 }

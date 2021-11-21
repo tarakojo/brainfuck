@@ -19,3 +19,7 @@
   overflow-y: hidden;
   flex:1;
 }
+
+.editor_playmode_cursor{
+  background-color: var(--purple1);
+}

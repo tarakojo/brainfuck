@@ -21,6 +21,7 @@ CodeMirror.defineMode("mymode", function () {
 
 let editor = {
   playMode: false,
+  pc_marking: null,
   delay: 20,
   loopEnd: false
 };
@@ -34,22 +35,30 @@ editor.editor = CodeMirror.fromTextArea(document.getElementById("editor_body"), 
   autoCloseBrackets: true
 });
 
+editor.editor.on("beforeChange", (e, c) => {
+  if (editor.playMode) c.cancel();
+});
+
 editor.getValue = () => { return editor.editor.getValue(); }
 editor.setValue = (str) => { editor.editor.setValue(str); }
 
 editor.setPlayMode = () => {
   editor.playMode = true;
-  document.getElementById("editor").classList.add("editor_playmode");
+  document.getElementById("editor").classList.add("editor_disabled");
 }
 editor.setEditMode = () => {
+  document.getElementById("editor").classList.remove("editor_disabled");
+  editor.clear_marking();
   editor.set_cursor_endOfSource();
-  document.getElementById("editor").classList.remove("editor_playmode");
   editor.playMode = false;
 }
 
-editor.editor.on("beforeChange", (e, c) => {
-  if (editor.playMode) c.cancel();
-});
+editor.clear_marking = () => {
+  if (editor.pc_marking != null) {
+    editor.pc_marking.clear();
+    editor.pc_marking = null;
+  }
+}
 
 editor.set_cursor_endOfSource = () => {
   const loc = interpreter.location[interpreter.location.length - 1];
@@ -57,16 +66,16 @@ editor.set_cursor_endOfSource = () => {
 }
 
 editor.update_highlight = () => {
+  editor.clear_marking();
   let pc = interpreter.programCounter;
   if (pc >= interpreter.program.length) {
     editor.set_cursor_endOfSource();
     return;
   }
   const loc = interpreter.location[pc];
-  editor.editor.setSelection(loc, { line: loc.line, ch: loc.ch + 1 });
+  editor.pc_marking = editor.editor.markText(loc, { line: loc.line, ch: loc.ch + 1 }, { className: "editor_playmode_cursor" });
 }
 
-document.addEventListener("beforeunload", () => { editor.loopEnd = true; });
 editor.loop = () => {
   if (editor.loopEnd) return;
   new Promise((resolve) => {
